@@ -4,22 +4,23 @@ import { type FC } from "react";
 // import Link from "next/link";
 
 import { Stack, Box, Text, Link, HStack } from "@chakra-ui/react";
+import Image from "next/image";
 
 interface LogoProps {
-  width?: string;
-  height?: string;
+  width?: number;
+  height?: number;
   alt?: string;
 }
 
 const SwagathonImageLogo: FC<LogoProps> = ({
-  width = "100px",
-  height = "100px",
+  width = 100,
+  height = 100,
   alt = "Logo",
 }) => {
   // const { theme } = useTheme();
   // const textColor = theme === "light" ? "#000000" : "#ffffff";
   return (
-    <img
+    <Image
       src="/img/swagathon-logo-square-color.png" // Adjust the path to where your image is located
       alt={alt}
       width={width}

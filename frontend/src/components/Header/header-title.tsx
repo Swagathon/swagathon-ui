@@ -16,7 +16,7 @@ export function HeaderTitle() {
   return (
     <Link href="#" className="flex items-center gap-2" prefetch={false}>
       <HStack>
-        <SwagathonImageLogo width="48px" height="48px" alt="Logo" />
+        <SwagathonImageLogo width={48} height={48} alt="Logo" />
         <SwagathonTextLogo />
       </HStack>
     </Link>

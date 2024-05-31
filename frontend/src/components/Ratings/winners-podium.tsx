@@ -11,6 +11,7 @@ import {
   TooltipContent,
 } from "@/components/ui/tooltip";
 import { Card } from "../ui/card";
+import { InfoIcon } from "lucide-react";
 
 export function WinnersPodium() {
   return (
@@ -20,9 +21,9 @@ export function WinnersPodium() {
             <img
               src="/placeholder.svg"
               alt="2nd place logo"
-              className="mb-2 rounded-lg bg-[#0077b6]"
+              className="mb-2 rounded-lg bg-[#0077b6] w-44"
             />
-            <div className="w-32 h-24 bg-[#0077b6] flex items-center justify-center rounded-lg relative">
+            <div className="w-60 h-36 bg-[#0077b6] flex items-center justify-center rounded-lg relative">
               <span className="text-white text-lg font-bold">
                 2<sup>nd</sup>
               </span>
@@ -56,9 +57,9 @@ export function WinnersPodium() {
             <img
               src="/placeholder.svg"
               alt="1st place logo"
-              className="mb-2 rounded-lg bg-[#023e8a]"
+              className="mb-2 rounded-lg bg-[#023e8a] w-56"
             />
-            <div className="w-40 h-32 bg-[#023e8a] flex items-center justify-center rounded-lg relative">
+            <div className="w-64 h-48 bg-[#023e8a] flex items-center justify-center rounded-lg relative">
               <span className="text-white text-lg font-bold">
                 1<sup>st</sup>
               </span>
@@ -92,9 +93,9 @@ export function WinnersPodium() {
             <img
               src="/placeholder.svg"
               alt="3rd place logo"
-              className="mb-2 rounded-lg bg-[#0077b6]"
+              className="mb-2 rounded-lg bg-[#0077b6] w-36"
             />
-            <div className="w-28 h-20 bg-[#0077b6] flex items-center justify-center rounded-lg relative">
+            <div className="w-56 h-20 bg-[#347496] flex items-center justify-center rounded-lg relative">
               <span className="text-white text-lg font-bold">
                 3<sup>rd</sup>
               </span>
@@ -294,23 +295,4 @@ export function WinnersPodium() {
   );
 }
 
-function InfoIcon(props) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <circle cx="12" cy="12" r="10" />
-      <path d="M12 16v-4" />
-      <path d="M12 8h.01" />
-    </svg>
-  );
-}
+

@@ -38,22 +38,23 @@ import { WinnerPodium } from "./winner-podium";
 import { WinnersPodium } from "./winners-podium";
 
 export function WinnersTabBox() {
-  const [activeTab, setActiveTab] = useState(0);
+  const [activeTab, setActiveTab] = useState("Overall");
   return (
     <div className="w-full max-w-screen-lg mx-auto sm:px-4 md:px-8">
       <Tabs value={activeTab} onValueChange={setActiveTab} className="border-b">
         <TabsList className="flex flex-shrink mx-auto">
-          <TabsTrigger value={0}>Overall</TabsTrigger>
-          <TabsTrigger value={1}>Booth</TabsTrigger>
-          <TabsTrigger value={2}>Swag</TabsTrigger>
-          <TabsTrigger value={3}>Sustainable</TabsTrigger>
+          <TabsTrigger value={"Overall"}>Overall</TabsTrigger>
+          <TabsTrigger value={"Booth"}>Booth</TabsTrigger>
+          <TabsTrigger value={"Swag"}>Swag</TabsTrigger>
+          <TabsTrigger value={"Sustainable"}>Sustainable</TabsTrigger>
         </TabsList>
-        <TabsContent value={0}>
+        <TabsContent value={"Overall"}>
           <Card className="p-6">
             <CardHeader>
               <CardTitle>Best Overall</CardTitle>
               <CardDescription>
-                Sponsor with the top overall Swagathon score based on the transparent rating formula.
+                Sponsor with the top overall Swagathon score based on the
+                transparent rating formula.
               </CardDescription>
               <CardContent>
                 <WinnersPodium />
@@ -61,7 +62,7 @@ export function WinnersTabBox() {
             </CardHeader>
           </Card>
         </TabsContent>
-        <TabsContent value={1}>
+        <TabsContent value={"Booth"}>
           <Card className="p-6">
             <CardHeader>
               <CardTitle>Powerful Features</CardTitle>
@@ -95,7 +96,7 @@ export function WinnersTabBox() {
             </CardContent>
           </Card>
         </TabsContent>
-        <TabsContent value={2}>
+        <TabsContent value={"Swag"}>
           <Card className="p-6">
             <CardHeader>
               <CardTitle>Pricing Plans</CardTitle>
@@ -159,7 +160,7 @@ export function WinnersTabBox() {
             </CardContent>
           </Card>
         </TabsContent>
-        <TabsContent value={3}>
+        <TabsContent value={"Sustainable"}>
           <Card className="p-6">
             <CardHeader>
               <CardTitle>Get in Touch</CardTitle>

@@ -28,6 +28,42 @@ import {
 } from "@/components/ui/tooltip";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
+import { DATA_TABLE_PROPERTIES } from "@/constants";
+import { ArrowUpDownIcon, InfoIcon, LinkIcon } from "lucide-react";
+
+// interface for sponsors
+//   {
+//     "uuid": "11EF1C3ACA953A85B3151257CC62887F",
+//     "id": 527,
+//     "name": "WOLF Financial ",
+//     "booth": null,
+//     "website": "https://wolf.financial/",
+//     "image_thumb": "//d2pasa6bkzkrjd.cloudfront.net/_resize/consensus2024/partner/500/site/consensus2024/images/userfiles/partners/7b62ab4f3c698343d55fd25e1f49bf29.png",
+//     "swag": true,
+//     "num1": 123,
+//     "num2": 456,
+//     "num3": 789,
+//     "num4": 987,
+//     "num5": 654,
+//     "overallScore": 80
+//   }
+
+interface Sponsor {
+  id: number;
+  name: string;
+  booth: string | null;
+  website: string;
+  image_thumb: string;
+  swag: boolean;
+  num1: number;
+  num2: number;
+  num3: number;
+  num4: number;
+  num5: number;
+  overallScore: number;
+          [key: string]: any; // Add index signature
+
+}
 
 export function RatingsDataTable() {
   const [search, setSearch] = useState("");
@@ -35,7 +71,7 @@ export function RatingsDataTable() {
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(25);
   const [loading, setLoading] = useState(true);
-  const [sponsors, setSponsors] = useState([]);
+  const [sponsors, setSponsors] = useState<Array<Sponsor>>([]);
 
   useEffect(() => {
     const fetchSponsors = async () => {
@@ -43,6 +79,9 @@ export function RatingsDataTable() {
       try {
         const response = await fetch("/api/sponsors");
         const data = await response.json();
+        if (!response.ok) {
+          throw new Error(data?.message || "Failed to fetch sponsors");
+        }
         setSponsors(data);
       } catch (error) {
         console.error("Error fetching sponsors:", error);
@@ -86,7 +125,7 @@ export function RatingsDataTable() {
       .slice((page - 1) * pageSize, page * pageSize);
   }, [sponsors, search, sort, page, pageSize]);
 
-  const handleSort = (key) => {
+  const handleSort = (key: any) => {
     if (sort.key === key) {
       setSort({ key, order: sort.order === "asc" ? "desc" : "asc" });
     } else {
@@ -94,11 +133,11 @@ export function RatingsDataTable() {
     }
   };
 
-  const handlePageChange = (page) => {
+  const handlePageChange = (page: any) => {
     setPage(page);
   };
 
-  const handlePageSizeChange = (size) => {
+  const handlePageSizeChange = (size: any) => {
     setPageSize(size);
     setPage(1);
   };
@@ -206,7 +245,7 @@ export function RatingsDataTable() {
                   className="cursor-pointer text-right"
                   onClick={() => handleSort("num1")}
                 >
-                  Number 1
+                  {DATA_TABLE_PROPERTIES["num1"]}
                   {sort.key === "num1" && (
                     <span className="ml-1">
                       {sort.order === "asc" ? "\u2191" : "\u2193"}
@@ -217,7 +256,7 @@ export function RatingsDataTable() {
                   className="cursor-pointer text-right"
                   onClick={() => handleSort("num2")}
                 >
-                  Number 2
+                  {DATA_TABLE_PROPERTIES["num2"]}
                   {sort.key === "num2" && (
                     <span className="ml-1">
                       {sort.order === "asc" ? "\u2191" : "\u2193"}
@@ -228,7 +267,7 @@ export function RatingsDataTable() {
                   className="cursor-pointer text-right"
                   onClick={() => handleSort("num3")}
                 >
-                  Number 3
+                  {DATA_TABLE_PROPERTIES["num3"]}
                   {sort.key === "num3" && (
                     <span className="ml-1">
                       {sort.order === "asc" ? "\u2191" : "\u2193"}
@@ -239,7 +278,7 @@ export function RatingsDataTable() {
                   className="cursor-pointer text-right"
                   onClick={() => handleSort("num4")}
                 >
-                  Number 4
+                  {DATA_TABLE_PROPERTIES["num4"]}
                   {sort.key === "num4" && (
                     <span className="ml-1">
                       {sort.order === "asc" ? "\u2191" : "\u2193"}
@@ -250,7 +289,7 @@ export function RatingsDataTable() {
                   className="cursor-pointer text-right"
                   onClick={() => handleSort("num5")}
                 >
-                  Number 5
+                  {DATA_TABLE_PROPERTIES["num5"]}
                   {sort.key === "num5" && (
                     <span className="ml-1">
                       {sort.order === "asc" ? "\u2191" : "\u2193"}
@@ -271,7 +310,7 @@ export function RatingsDataTable() {
                     <div className="flex items-center gap-4">
                       <Avatar className="w-16 h-16 border">
                         <AvatarImage
-                          src={sponsor.image_thumb}
+                          src={(sponsor as { image_thumb: string }).image_thumb}
                           alt={sponsor.name}
                         />
                         <AvatarFallback>
@@ -305,7 +344,10 @@ export function RatingsDataTable() {
                           >
                             <LinkIcon className="w-4 h-4" />
                             {/* hide http, www, and path from url */}
-                            {sponsor?.website?.replace(/(^\w+:|^)\/\//, "").split("/")[0].replace("www.", "")}
+                            {sponsor?.website
+                              ?.replace(/(^\w+:|^)\/\//, "")
+                              .split("/")[0]
+                              .replace("www.", "")}
                           </Link>
                         )}
                       </div>
@@ -316,8 +358,8 @@ export function RatingsDataTable() {
                   </TableCell>
                   <TableCell>
                     <Badge
-                    variant="outline"
-                    // {sponsor.swag ? "default" : "outline"}
+                      variant="outline"
+                      // {sponsor.swag ? "default" : "outline"}
                       className={
                         sponsor.swag
                           ? "bg-white text-emerald-800"
@@ -363,68 +405,5 @@ export function RatingsDataTable() {
         )}
       </div>
     </div>
-  );
-}
-
-function ArrowUpDownIcon(props) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="m21 16-4 4-4-4" />
-      <path d="M17 20V4" />
-      <path d="m3 8 4-4 4 4" />
-      <path d="M7 4v16" />
-    </svg>
-  );
-}
-
-function InfoIcon(props) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <circle cx="12" cy="12" r="10" />
-      <path d="M12 16v-4" />
-      <path d="M12 8h.01" />
-    </svg>
-  );
-}
-
-function LinkIcon(props) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
-      <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
-    </svg>
   );
 }
