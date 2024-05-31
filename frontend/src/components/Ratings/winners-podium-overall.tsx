@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/tooltip";
 import { Card } from "../ui/card";
 import { InfoIcon } from "lucide-react";
+import { useEffect, useState } from "react";
 
 interface Sponsor {
   id: number;
@@ -29,24 +30,50 @@ interface Sponsor {
   [key: string]: any; // Add index signature
 }
 
-export type WinnerCategory = "Overall" | "Booth" | "Swag" | "Sustainable";
+export function WinnersPodiumOverall() {
+  const [loading, setLoading] = useState(true);
+  const [sponsors, setSponsors] = useState<Array<Sponsor>>([]);
 
-export function WinnersPodium() {
+
+  useEffect(() => {
+    const fetchSponsors = async () => {
+      setLoading(true);
+      try {
+        const response = await fetch("/api/sponsors");
+        const data = await response.json();
+        if (!response.ok) {
+          throw new Error(data?.message || "Failed to fetch sponsors");
+        }
+        // sort sponsors array by overallScore property
+        // and only keep the top 10
+        data.sort((a: Sponsor, b: Sponsor) => b.overallScore - a.overallScore);
+        const top10sponsors = data.slice(0, 10);
+        setSponsors(top10sponsors);
+      } catch (error) {
+        console.error("Error fetching sponsors:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchSponsors();
+  }, []);
+
+
   return (
     <div className="flex flex-col items-center">
       <div className="flex justify-center items-end space-x-4 mt-8">
         <div className="flex flex-col items-center">
           <img
-            src="/placeholder.svg"
+            src={sponsors[1]?.image_thumb}
             alt="2nd place logo"
-            className="mb-2 rounded-lg bg-[#0077b6] w-44"
+            className="mb-2 rounded-lg  w-44 border-4 border-[#0077b6]"
           />
           <div className="w-60 h-36 bg-[#0077b6] flex items-center justify-center rounded-lg relative">
             <span className="text-white text-lg font-bold">
               2<sup>nd</sup>
             </span>
             <div className="absolute top-0 right-0 bg-gray-900 text-white px-2 py-0.5 rounded-full text-xs font-medium">
-              Score: 87
+              Score: {sponsors[1]?.overallScore}
             </div>
           </div>
           <div className="mt-2 flex items-center">
@@ -55,7 +82,7 @@ export function WinnersPodium() {
               className="text-sm font-medium hover:underline"
               prefetch={false}
             >
-              Winner name
+              {sponsors[1]?.name}
             </Link>
             <TooltipProvider>
               <Tooltip>
@@ -65,7 +92,7 @@ export function WinnersPodium() {
                   </button>
                 </TooltipTrigger>
                 <TooltipContent>
-                  <p>This is the 2nd place winner.</p>
+                  <p>{sponsors[1]?.description}</p>
                 </TooltipContent>
               </Tooltip>
             </TooltipProvider>
@@ -73,16 +100,16 @@ export function WinnersPodium() {
         </div>
         <div className="flex flex-col items-center">
           <img
-            src="/placeholder.svg"
+            src={sponsors[0]?.image_thumb}
             alt="1st place logo"
-            className="mb-2 rounded-lg bg-[#023e8a] w-56"
+            className="mb-2 rounded-lg w-56 border-4 border-[#023e8a]"
           />
           <div className="w-64 h-48 bg-[#023e8a] flex items-center justify-center rounded-lg relative">
             <span className="text-white text-lg font-bold">
               1<sup>st</sup>
             </span>
             <div className="absolute top-0 right-0 bg-gray-900 text-white px-2 py-0.5 rounded-full text-xs font-medium">
-              Score: 95
+              Score: {sponsors[0]?.overallScore}
             </div>
           </div>
           <div className="mt-2 flex items-center">
@@ -91,7 +118,7 @@ export function WinnersPodium() {
               className="text-sm font-medium hover:underline"
               prefetch={false}
             >
-              Winner name
+              {sponsors[0]?.name}
             </Link>
             <TooltipProvider>
               <Tooltip>
@@ -101,7 +128,7 @@ export function WinnersPodium() {
                   </button>
                 </TooltipTrigger>
                 <TooltipContent>
-                  <p>This is the 1st place winner.</p>
+                  <p>{sponsors[0]?.description}</p>
                 </TooltipContent>
               </Tooltip>
             </TooltipProvider>
@@ -109,16 +136,16 @@ export function WinnersPodium() {
         </div>
         <div className="flex flex-col items-center">
           <img
-            src="/placeholder.svg"
+            src={sponsors[2]?.image_thumb}
             alt="3rd place logo"
-            className="mb-2 rounded-lg bg-[#0077b6] w-36"
+            className="mb-2 rounded-lg  w-36 border-4 border-[#347496]"
           />
           <div className="w-56 h-20 bg-[#347496] flex items-center justify-center rounded-lg relative">
             <span className="text-white text-lg font-bold">
               3<sup>rd</sup>
             </span>
             <div className="absolute top-0 right-0 bg-gray-900 text-white px-2 py-0.5 rounded-full text-xs font-medium">
-              Score: 81
+              Score: {sponsors[2]?.overallScore}
             </div>
           </div>
           <div className="mt-2 flex items-center">
@@ -127,7 +154,7 @@ export function WinnersPodium() {
               className="text-sm font-medium hover:underline"
               prefetch={false}
             >
-              Winner name
+              {sponsors[2]?.name} 
             </Link>
             <TooltipProvider>
               <Tooltip>
@@ -150,15 +177,15 @@ export function WinnersPodium() {
         <div className="flex justify-center items-end space-x-4 mt-8">
           <h2 className="text-2xl font-bold mb-4">Honourable Mentions</h2>
         </div>
-        <div className="flex justify-center items-end space-x-4 mt-4">
+        <div className="flex justify-center items-start space-x-4 mt-4">
           <div className="flex flex-col items-center relative">
             <img
-              src="/placeholder.svg"
+              src={sponsors[3]?.image_thumb}
               alt="4th place logo"
-              className="mb-2 rounded-lg bg-[#0077b6]"
+              className="mb-2 rounded-lg  w-44  border-4 border-[#0077b6]"
             />
             <div className="absolute top-0 right-0 bg-gray-900 text-white px-2 py-0.5 rounded-full text-xs font-medium">
-              Score: 78
+              Score: {sponsors[3]?.overallScore}
             </div>
             <div className="mt-2 flex-col justify-center align-middle items-center">
               4<sup>th</sup> Place
@@ -168,19 +195,19 @@ export function WinnersPodium() {
                 prefetch={false}
               >
                 <div className="mt-1 text-sm text-gray-500 dark:text-gray-400">
-                  Runner up name
+                  {sponsors[3]?.name}
                 </div>
               </Link>
             </div>
           </div>
           <div className="flex flex-col items-center relative">
             <img
-              src="/placeholder.svg"
+              src={sponsors[4]?.image_thumb}
               alt="5th place logo"
-              className="mb-2 rounded-lg bg-[#0077b6]"
+              className="mb-2 rounded-lg  w-44 border-4 border-[#0077b6]"
             />
             <div className="absolute top-0 right-0 bg-gray-900 text-white px-2 py-0.5 rounded-full text-xs font-medium">
-              Score: 75
+              Score: {sponsors[4]?.overallScore}
             </div>
             <div className="mt-2 flex-col justify-center align-middle items-center">
               5<sup>th</sup> Place
@@ -190,19 +217,19 @@ export function WinnersPodium() {
                 prefetch={false}
               >
                 <div className="mt-1 text-sm text-gray-500 dark:text-gray-400">
-                  Runner up name
+                  {sponsors[4]?.name}
                 </div>
               </Link>
             </div>
           </div>
           <div className="flex flex-col items-center relative">
             <img
-              src="/placeholder.svg"
+              src={sponsors[5]?.image_thumb}
               alt="6th place logo"
-              className="mb-2 rounded-lg bg-[#0077b6]"
+              className="mb-2 rounded-lg w-44 border-4 border-[#0077b6]"
             />
             <div className="absolute top-0 right-0 bg-gray-900 text-white px-2 py-0.5 rounded-full text-xs font-medium">
-              Score: 72
+              Score: {sponsors[5]?.overallScore}
             </div>
             <div className="mt-2 flex-col justify-center align-middle items-center">
               6<sup>th</sup> Place
@@ -212,19 +239,19 @@ export function WinnersPodium() {
                 prefetch={false}
               >
                 <div className="mt-1 text-sm text-gray-500 dark:text-gray-400">
-                  Runner up name
+                  {sponsors[5]?.name}
                 </div>
               </Link>
             </div>
           </div>
           <div className="flex flex-col items-center relative">
             <img
-              src="/placeholder.svg"
+              src={sponsors[6]?.image_thumb}
               alt="7th place logo"
-              className="mb-2 rounded-lg bg-[#0077b6]"
+              className="mb-2 rounded-lg w-44 border-4 border-[#0077b6]"
             />
             <div className="absolute top-0 right-0 bg-gray-900 text-white px-2 py-0.5 rounded-full text-xs font-medium">
-              Score: 69
+              Score: {sponsors[6]?.overallScore}
             </div>
             <div className="mt-2 flex-col justify-center align-middle items-center">
               7<sup>th</sup> Place
@@ -234,19 +261,19 @@ export function WinnersPodium() {
                 prefetch={false}
               >
                 <div className="mt-1 text-sm text-gray-500 dark:text-gray-400">
-                  Runner up name
+                  {sponsors[6]?.name}
                 </div>
               </Link>
             </div>
           </div>
           <div className="flex flex-col items-center relative">
             <img
-              src="/placeholder.svg"
+              src={sponsors[7]?.image_thumb}
               alt="8th place logo"
-              className="mb-2 rounded-lg bg-[#0077b6]"
+              className="mb-2 rounded-lg w-44 border-4 border-[#0077b6]"
             />
             <div className="absolute top-0 right-0 bg-gray-900 text-white px-2 py-0.5 rounded-full text-xs font-medium">
-              Score: 66
+              Score: {sponsors[7]?.overallScore}
             </div>
             <div className="mt-2 flex-col justify-center align-middle items-center">
               8<sup>th</sup> Place
@@ -256,19 +283,19 @@ export function WinnersPodium() {
                 prefetch={false}
               >
                 <div className="mt-1 text-sm text-gray-500 dark:text-gray-400">
-                  Runner up name
+                  {sponsors[7]?.name}
                 </div>
               </Link>
             </div>
           </div>
           <div className="flex flex-col items-center relative">
             <img
-              src="/placeholder.svg"
+              src={sponsors[8]?.image_thumb}
               alt="9th place logo"
-              className="mb-2 rounded-lg bg-[#0077b6]"
+              className="mb-2 rounded-lg w-44 border-4 border-[#0077b6]"
             />
             <div className="absolute top-0 right-0 bg-gray-900 text-white px-2 py-0.5 rounded-full text-xs font-medium">
-              Score: 63
+              Score: {sponsors[8]?.overallScore}
             </div>
             <div className="mt-2 flex-col justify-center align-middle items-center">
               9<sup>th</sup> Place
@@ -278,19 +305,19 @@ export function WinnersPodium() {
                 prefetch={false}
               >
                 <div className="mt-1 text-sm text-gray-500 dark:text-gray-400">
-                  Runner up name
+                  {sponsors[8]?.name}
                 </div>
               </Link>
             </div>
           </div>
           <div className="flex flex-col items-center relative">
             <img
-              src="/placeholder.svg"
+              src={sponsors[9]?.image_thumb}
               alt="10th place logo"
-              className="mb-2 rounded-lg bg-[#0077b6]"
+              className="mb-2 rounded-lg w-44 border-4 border-[#0077b6]"
             />
             <div className="absolute top-0 right-0 bg-gray-900 text-white px-2 py-0.5 rounded-full text-xs font-medium">
-              Score: 60
+              Score: {sponsors[9]?.overallScore}
             </div>
             <div className="mt-2 flex-col justify-center align-middle items-center">
               10<sup>th</sup> Place
@@ -300,7 +327,7 @@ export function WinnersPodium() {
                 prefetch={false}
               >
                 <div className="mt-1 text-sm text-gray-500 dark:text-gray-400">
-                  Runner up name
+                  {sponsors[9]?.name}
                 </div>
               </Link>
             </div>
@@ -310,5 +337,3 @@ export function WinnersPodium() {
     </div>
   );
 }
-
-

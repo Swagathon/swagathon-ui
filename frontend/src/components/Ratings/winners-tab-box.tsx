@@ -34,8 +34,8 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { CheckIcon } from "lucide-react";
-import { WinnerPodium } from "./winner-podium";
 import { WinnersPodium } from "./winners-podium";
+import { WinnersPodiumOverall } from "./winners-podium-overall";
 
 export function WinnersTabBox() {
   const [activeTab, setActiveTab] = useState("Overall");
@@ -57,7 +57,7 @@ export function WinnersTabBox() {
                 transparent rating formula.
               </CardDescription>
               <CardContent>
-                <WinnersPodium />
+                <WinnersPodiumOverall />
               </CardContent>
             </CardHeader>
           </Card>
