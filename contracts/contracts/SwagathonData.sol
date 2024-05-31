@@ -33,7 +33,22 @@ contract DataStorage is AccessControl {
 
     /// @dev Initializes the contract by setting the deployer as the default admin
     constructor() {
-        _setupRole(DEFAULT_ADMIN_ROLE, msg.sender);
+        
+        _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
+        _grantRole(DATA_SETTER_ROLE, msg.sender);
+    }
+
+    function addDataAdmin(address account) public onlyRole(DEFAULT_ADMIN_ROLE) {
+        _grantRole(DATA_SETTER_ROLE, account);
+    }
+
+    function removeDataAdmin(address account) public onlyRole(DEFAULT_ADMIN_ROLE) {
+        _revokeRole(DATA_SETTER_ROLE, account);
+    }
+
+    function transferAdmin(address newAdmin) public onlyRole(DEFAULT_ADMIN_ROLE) {
+        _grantRole(DEFAULT_ADMIN_ROLE, newAdmin);
+        _revokeRole(DEFAULT_ADMIN_ROLE, _msgSender());
     }
 
     /// @notice Sets all data for a given UUID
