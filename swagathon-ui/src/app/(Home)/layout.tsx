@@ -1,22 +1,23 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
-import { Providers } from "./providers";
-
+import { Providers } from "../providers";
 
 import "@/styles/globals.css";
-import "@/styles/globalsv0.css";
 import "@/styles/fonts.css";
 import "@/styles/styles.css";
 import "@rainbow-me/rainbowkit/styles.css";
+
+import { APP_DESCRIPTION, APP_NAME } from "@/constants";
+import { Header } from "@/components/common/Header";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 // const open_sans = Open_Sans({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Swagathon",
-  applicationName: "Swagathon",
+  title: APP_NAME,
+  applicationName: APP_NAME,
 
-  description: "Social Ratings for Event Swag",
+  description: APP_DESCRIPTION,
   icons: "favicon.ico",
   manifest: "site.webmanifest",
 };
@@ -40,7 +41,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Providers>{children}</Providers>
+        <Providers>
+          <Header />
+          {children}
+          </Providers>
       </body>
     </html>
   );

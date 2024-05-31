@@ -8,6 +8,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { WagmiProvider } from "wagmi";
 
 import { wagmiConfig } from "@/wagmi";
+import { APP_NAME } from "@/constants";
+
 
 export function Providers({ children }: { children: ReactNode }) {
   const [mounted, setMounted] = useState(false);
@@ -19,7 +21,7 @@ export function Providers({ children }: { children: ReactNode }) {
   const theme = extendTheme({ initialColorMode: "dark", useSystemColorMode: false });
 
   const appInfo = {
-    appName: "Swagathon",
+    appName: APP_NAME,
   };
 
   return (
