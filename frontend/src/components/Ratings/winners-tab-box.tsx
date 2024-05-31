@@ -35,6 +35,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { CheckIcon } from "lucide-react";
 import { WinnerPodium } from "./winner-podium";
+import { WinnersPodium } from "./winners-podium";
 
 export function WinnersTabBox() {
   const [activeTab, setActiveTab] = useState(0);
@@ -55,7 +56,7 @@ export function WinnersTabBox() {
                 Sponsor with the top overall Swagathon score based on the transparent rating formula.
               </CardDescription>
               <CardContent>
-                <WinnerPodium />
+                <WinnersPodium />
               </CardContent>
             </CardHeader>
           </Card>
