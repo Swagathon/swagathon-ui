@@ -6,7 +6,7 @@ import "@/styles/globals.css";
 import "@/styles/fonts.css";
 import "@rainbow-me/rainbowkit/styles.css";
 
-import { Providers } from "../providers";
+import { Providers } from "./providers";
 
 const inter = Inter({ subsets: ["latin"] });
 
