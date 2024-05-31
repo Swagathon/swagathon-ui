@@ -36,6 +36,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { CheckIcon } from "lucide-react";
 import { WinnersPodium } from "./winners-podium";
 import { WinnersPodiumOverall } from "./winners-podium-overall";
+import { WinnersPodiumBooth } from "./winners-podium-booth";
+import { WinnersPodiumSwag } from "./winners-podium-swag";
 
 export function WinnersTabBox() {
   const [activeTab, setActiveTab] = useState("Overall");
@@ -65,98 +67,26 @@ export function WinnersTabBox() {
         <TabsContent value={"Booth"}>
           <Card className="p-6">
             <CardHeader>
-              <CardTitle>Powerful Features</CardTitle>
+              <CardTitle>Best Booth</CardTitle>
               <CardDescription>
-                Discover the capabilities that set our product apart.
+                Sponsor with the most awesome booth! The booth with the highest
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <ul className="space-y-2">
-                <li>
-                  <h4 className="font-medium">Automation</h4>
-                  <p>
-                    Automate repetitive tasks and free up your time for more
-                    important work.
-                  </p>
-                </li>
-                <li>
-                  <h4 className="font-medium">Collaboration</h4>
-                  <p>
-                    Seamlessly work with your team and share information in
-                    real-time.
-                  </p>
-                </li>
-                <li>
-                  <h4 className="font-medium">Analytics</h4>
-                  <p>
-                    Gain valuable insights with our advanced analytics tools.
-                  </p>
-                </li>
-              </ul>
+              <WinnersPodiumBooth />
             </CardContent>
           </Card>
         </TabsContent>
         <TabsContent value={"Swag"}>
           <Card className="p-6">
             <CardHeader>
-              <CardTitle>Pricing Plans</CardTitle>
+              <CardTitle>Best Swag</CardTitle>
               <CardDescription>
-                Choose the plan that best fits your needs.
+                These are the sponsors with the best swag based on the
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="grid gap-4 md:grid-cols-2">
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Starter</CardTitle>
-                    <CardDescription>$9/month</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <ul className="space-y-2 text-sm">
-                      <li>
-                        <CheckIcon className="w-4 h-4 mr-2 text-green-500" />5
-                        users
-                      </li>
-                      <li>
-                        <CheckIcon className="w-4 h-4 mr-2 text-green-500" />1
-                        GB storage
-                      </li>
-                      <li>
-                        <CheckIcon className="w-4 h-4 mr-2 text-green-500" />
-                        Basic features
-                      </li>
-                    </ul>
-                  </CardContent>
-                  <CardFooter>
-                    <Button>Get Started</Button>
-                  </CardFooter>
-                </Card>
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Pro</CardTitle>
-                    <CardDescription>$29/month</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <ul className="space-y-2 text-sm">
-                      <li>
-                        <CheckIcon className="w-4 h-4 mr-2 text-green-500" />
-                        Unlimited users
-                      </li>
-                      <li>
-                        <CheckIcon className="w-4 h-4 mr-2 text-green-500" />
-                        50 GB storage
-                      </li>
-                      <li>
-                        <CheckIcon className="w-4 h-4 mr-2 text-green-500" />
-                        Advanced features
-                      </li>
-                    </ul>
-                  </CardContent>
-                  <CardFooter>
-                    <Button>Get Started</Button>
-                  </CardFooter>
-                </Card>
-              </div>
+              <WinnersPodiumSwag />
             </CardContent>
           </Card>
         </TabsContent>
