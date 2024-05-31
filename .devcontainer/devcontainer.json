@@ -39,7 +39,8 @@
                 "GitHub.copilot",
                 "YoavBls.pretty-ts-errors",
                 "streetsidesoftware.code-spell-checker",
-                "christian-kohler.npm-intellisense"
+                "christian-kohler.npm-intellisense",
+                "bradlc.vscode-tailwindcss"
             ],
             "settings": {
                 // "terminal.integrated.shell.linux": "/bin/bash -l",

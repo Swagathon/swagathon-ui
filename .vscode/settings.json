@@ -25,5 +25,18 @@
     "search.exclude": {
         "**/node_modules": true,
         "**/.next": true,
-    }
+    },
+    "tailwindCSS.includeLanguages": {
+        "plaintext": "css",
+        "javascript": "javascript",
+        "javascriptreact": "javascript",
+        "typescript": "typescript",
+        "typescriptreact": "typescript"
+    },
+    "editor.quickSuggestions": {
+        "strings": true
+    },
+    "css.validate": false,
+    "scss.validate": false,
+    "less.validate": false
 }
